@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/currency_rate_fragment">
+
+    <fragment
+        android:id="@+id/currency_rate_fragment"
+        android:name="com.nextop.ratelist.ui.exchangerate.CurrencyRateFragment"
+        android:label="@string/currency_rate_title"
+        tools:layout="@layout/fragment_currency_rate" />
+
+</navigation>

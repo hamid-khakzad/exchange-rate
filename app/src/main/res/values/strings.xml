@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Currency Rate List</string>
+    <string name="currency_rate_title">Rates</string>
+    <string name="latest_updated_date">Latest updated:</string>
+    <string name="no_connectivity_error">Internet Connection Error</string>
+    <string name="network_failure_error">Error on Connect to Server</string>
+    <string name="invalid_data_error">Invalid Data Error</string>
+    <string name="unkown_error">Unknown Error</string>
+    <string name="server_error">Server Error</string>
+</resources>

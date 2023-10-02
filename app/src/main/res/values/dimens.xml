@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_currency_rate_height">93dp</dimen>
+    <dimen name="item_currency_rate_padding">16dp</dimen>
+    <dimen name="round_corner_layout_radius">16dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="exchange_rate_item_vertical_spacing">10dp</dimen>
+    <dimen name="exchange_rate_fragment_botton_margin">58dp</dimen>
+</resources>
