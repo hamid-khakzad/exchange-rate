@@ -12,18 +12,28 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import retrofit2.Response
 
-@ExperimentalCoroutinesApi
+@RunWith(RobolectricTestRunner::class)
 class ExchangeRateViewModelTest {
 
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     private lateinit var viewModel: ExchangeRateViewModel
     private val stringResourcesProvider = mockk<StringResourcesProvider>(relaxed = true)
@@ -40,40 +50,53 @@ class ExchangeRateViewModelTest {
     }
 
     @Test
-    fun `given network error, when getExchangeRate, then post network error`() = runBlockingTest {
-        // Given
-        val errorObserver = mockk<Observer<Resource<ExchangeRateResponse>>>(relaxed = true)
-        viewModel.exchangeRate.observeForever(errorObserver)
-        coEvery { networkUtil.hasInternetConnection() } returns false
+    fun `given network error, when getExchangeRate, then post network error`() {
+        runBlocking {
+                // Given
+                val errorObserver = mockk<Observer<Resource<ExchangeRateResponse>>>(relaxed = true)
+                viewModel.exchangeRate.observeForever(errorObserver)
+                coEvery { networkUtil.hasInternetConnection() } returns false
 
-        // When
-        viewModel.getExchangeRate()
+                // When
+                viewModel.getExchangeRate()
 
-        // Then
-        val errorMsg = "No internet connection" // Replace with your actual error message
-        verify { errorObserver.onChanged(Resource.Error(errorMsg)) }
-        confirmVerified(errorObserver)
+                // Then
+                val errorMsg = "No internet connection" // Replace with your actual error message
+                verify { errorObserver.onChanged(Resource.Error(errorMsg)) }
+                confirmVerified(errorObserver)
+        }
     }
 
     @Test
-    fun `given network success and data fetch success, when getExchangeRate, then post success`() = runBlockingTest {
-        // Given
-        val successObserver = mockk<Observer<Resource<ExchangeRateResponse>>>(relaxed = true)
-        viewModel.exchangeRate.observeForever(successObserver)
-        val mockedResponse = mockk<Response<ExchangeRateResponse>>(relaxed = true)
-        val data = ExchangeRateResponse(mutableListOf(
-            ExchangeRate("EURUSD", 0.16337620324),
-            ExchangeRate("GBPJPY", 0.16337620324)))
-        coEvery { networkUtil.hasInternetConnection() } returns true
-        coEvery { exchangeRateRepository.getExchangeRates() } returns mockedResponse
-        every { mockedResponse.isSuccessful } returns true
-        every { mockedResponse.body() } returns data
+    fun `given network success and data fetch success, when getExchangeRate, then post success`() {
+        runBlocking {
+                // Given
+                val successObserver =
+                    mockk<Observer<Resource<ExchangeRateResponse>>>(relaxed = true)
+                viewModel.exchangeRate.observeForever(successObserver)
+                val mockedResponse = mockk<Response<ExchangeRateResponse>>(relaxed = true)
+                val data = ExchangeRateResponse(
+                    mutableListOf(
+                        ExchangeRate("EURUSD", 0.16337620324),
+                        ExchangeRate("GBPJPY", 0.16337620324)
+                    )
+                )
+                coEvery { networkUtil.hasInternetConnection() } returns true
+                coEvery { exchangeRateRepository.getExchangeRates() } returns mockedResponse
+                every { mockedResponse.isSuccessful } returns true
+                every { mockedResponse.body() } returns data
 
-        // When
-        viewModel.getExchangeRate()
+                // When
+                viewModel.getExchangeRate()
 
-        // Then
-        verify { successObserver.onChanged(Resource.Success(data)) }
-        confirmVerified(successObserver)
+                // Then
+                verify { successObserver.onChanged(Resource.Success(data)) }
+                confirmVerified(successObserver)
+        }
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
     }
 }

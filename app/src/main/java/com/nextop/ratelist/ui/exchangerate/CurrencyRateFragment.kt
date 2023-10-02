@@ -33,7 +33,7 @@ class CurrencyRateFragment : Fragment() {
 
 
     companion object {
-        const val API_CALL_DELAY = 5000L
+        const val API_CALL_DELAY = 2 * 60 * 1000L
     }
 
     var isLoading = false
