@@ -29,6 +29,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="478307371">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-M325FV" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="966906717">
           <value>
             <AndroidTestResultsTableState>
@@ -38,6 +51,19 @@
                   <entry key="RF8T308LE4B" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung&#10; SM-M325FV" value="120" />
+                  <entry key="samsung SM-M325FV" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1790605213">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
                   <entry key="samsung SM-M325FV" value="120" />
                 </map>
               </option>

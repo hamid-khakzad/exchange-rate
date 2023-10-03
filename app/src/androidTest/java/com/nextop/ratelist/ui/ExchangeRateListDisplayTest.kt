@@ -1,6 +1,8 @@
 package com.nextop.ratelist.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -19,6 +21,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
 
 @MediumTest
 @HiltAndroidTest
@@ -42,8 +45,10 @@ class ExchangeRateListDisplayTest {
 
     @Test
     fun isExchangeRateListVisible() {
+        val navController = Mockito.mock(NavController::class.java)
         // Launch fragment
         launchFragmentInHiltContainer<ExchangeRateFragment> {
+            Navigation.setViewNavController(requireView(), navController)
             //create mock data for exchange rate list
             val data = listOf(
                 ExchangeRate("EURUSD", 0.64039843048),
@@ -58,6 +63,7 @@ class ExchangeRateListDisplayTest {
         }
 
         onView(withId(R.id.currency_rates_rec)).check(matches(isDisplayed()))
+
     }
 }
 
