@@ -1,9 +1,6 @@
 package com.nextop.ratelist.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -12,11 +9,12 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.nextop.ratelist.AndroidMainCoroutinesRule
 import com.nextop.ratelist.R
 import com.nextop.ratelist.data.local.ExchangeRate
-import com.nextop.ratelist.ui.exchangerate.ExchangeRateAdapter
+import com.nextop.ratelist.launchFragmentInHiltContainer
 import com.nextop.ratelist.ui.exchangerate.ExchangeRateFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -26,7 +24,7 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
-class ExchangeRateListShowingTest {
+class ExchangeRateListDisplayTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -45,10 +43,7 @@ class ExchangeRateListShowingTest {
     @Test
     fun isExchangeRateListVisible() {
         // Launch fragment
-        val fragmentScenario: FragmentScenario<ExchangeRateFragment> = launchFragmentInContainer()
-
-        fragmentScenario.onFragment { fragment ->
-            val context = fragment.requireContext()
+        launchFragmentInHiltContainer<ExchangeRateFragment> {
             //create mock data for exchange rate list
             val data = listOf(
                 ExchangeRate("EURUSD", 0.64039843048),
@@ -57,16 +52,13 @@ class ExchangeRateListShowingTest {
                 ExchangeRate("JPYAED", 0.123376524),
                 ExchangeRate("JPYSEK", 0.18337620324)
             )
-            val exchangeRateRec: RecyclerView = fragment.view?.findViewById(R.id.currency_rates_rec)
-                ?: throw IllegalStateException("RecyclerView not found")
-            val adapter = ExchangeRateAdapter(context)
-            exchangeRateRec.adapter = adapter
-            adapter.submitList(data)
+            runTest {
+                exchangeRateAdapter.submitList(data)
+            }
         }
 
-        onView(withId(R.id.exchange_rate_fragment)).check(matches(isDisplayed()))
+        onView(withId(R.id.currency_rates_rec)).check(matches(isDisplayed()))
     }
-
 }
 
 

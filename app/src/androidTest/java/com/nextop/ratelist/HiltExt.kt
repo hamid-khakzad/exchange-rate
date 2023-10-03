@@ -24,7 +24,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import com.nextop.ratelist.ui.main.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -49,10 +48,10 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     val mainActivityIntent = Intent.makeMainActivity(
         ComponentName(
             ApplicationProvider.getApplicationContext(),
-            MainActivity::class.java
+            HiltTestActivity::class.java
         )
     ).putExtra(THEME_EXTRAS_BUNDLE_KEY, themeResId)
-    ActivityScenario.launch<MainActivity>(mainActivityIntent).onActivity { activity ->
+    ActivityScenario.launch<HiltTestActivity>(mainActivityIntent).onActivity { activity ->
         fragmentFactory?.let {
             activity.supportFragmentManager.fragmentFactory = it
         }

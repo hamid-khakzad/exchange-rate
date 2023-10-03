@@ -23,7 +23,7 @@ import java.util.Date
 class ExchangeRateFragment : Fragment() {
     private var _binding: FragmentCurrencyRateBinding? = null
     private val binding get() = _binding!!
-    private lateinit var exchangeRateAdapter: ExchangeRateAdapter;
+    lateinit var exchangeRateAdapter: ExchangeRateAdapter;
     private val exchangeRateViewModel: ExchangeRateViewModel by viewModels()
     private val scheduleApiCallHandler = Handler(Looper.getMainLooper())
     private lateinit var scheduleApiCallRunnable: Runnable
