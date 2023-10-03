@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
-class ExchangeRateFragmentTest {
+class ExchangeRateListShowingTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
