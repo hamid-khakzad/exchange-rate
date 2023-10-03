@@ -1,11 +1,8 @@
 package com.nextop.ratelist.ui.main
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import com.khakzad.ratelist.R
-import com.khakzad.ratelist.databinding.ActivityMainBinding
+import com.nextop.ratelist.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 

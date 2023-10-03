@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.nextop.ratelist.data.local.ExchangeRate
 
-class CurrencyDiffCallback : DiffUtil.ItemCallback<ExchangeRate>() {
+class ExchangeRateDiffCallback : DiffUtil.ItemCallback<ExchangeRate>() {
     companion object {
         const val PRICE_CHANGE_INDICATOR_KEY: String = "price_change_indicator"
         const val PRICE_KEY: String = "price_change"

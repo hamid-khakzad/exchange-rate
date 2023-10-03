@@ -3,7 +3,6 @@ package com.nextop.ratelist.ui.exchangerate
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.khakzad.ratelist.R
-import com.khakzad.ratelist.databinding.FragmentCurrencyRateBinding
+import com.nextop.ratelist.R
+import com.nextop.ratelist.databinding.FragmentCurrencyRateBinding
 import com.nextop.ratelist.util.Resource
 import com.nextop.ratelist.util.VerticalSpaceItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.Date
 
 @AndroidEntryPoint
-class CurrencyRateFragment : Fragment() {
+class ExchangeRateFragment : Fragment() {
     private var _binding: FragmentCurrencyRateBinding? = null
     private val binding get() = _binding!!
     private lateinit var exchangeRateAdapter: ExchangeRateAdapter;

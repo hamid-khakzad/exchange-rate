@@ -1,23 +1,20 @@
 package com.nextop.ratelist.ui.exchangerate
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.khakzad.ratelist.R
-import com.khakzad.ratelist.databinding.ItemCurrencyRateBinding
+import com.nextop.ratelist.R
+import com.nextop.ratelist.databinding.ItemCurrencyRateBinding
 import com.nextop.ratelist.data.local.ExchangeRate
 import com.nextop.ratelist.util.fractionFormat
 
 class ExchangeRateAdapter(private val context: Context) :
-    ListAdapter<ExchangeRate, ExchangeRateAdapter.ExchangeRateVh>(CurrencyDiffCallback()) {
+    ListAdapter<ExchangeRate, ExchangeRateAdapter.ExchangeRateVh>(ExchangeRateDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExchangeRateVh {
         val binding =
@@ -69,15 +66,15 @@ class ExchangeRateAdapter(private val context: Context) :
         }
 
         fun update(bundle: Bundle) {
-            if (bundle.containsKey(CurrencyDiffCallback.PRICE_CHANGE_INDICATOR_KEY)) {
+            if (bundle.containsKey(ExchangeRateDiffCallback.PRICE_CHANGE_INDICATOR_KEY)) {
                 val priceChangeStatus =
-                    bundle.getInt(CurrencyDiffCallback.PRICE_CHANGE_INDICATOR_KEY)
+                    bundle.getInt(ExchangeRateDiffCallback.PRICE_CHANGE_INDICATOR_KEY)
                 showPriceChangeIndicator(priceChangeStatus)
                 changePriceTextColor(priceChangeStatus)
             }
 
-            if (bundle.containsKey(CurrencyDiffCallback.PRICE_KEY)) {
-                val price = bundle.getDouble(CurrencyDiffCallback.PRICE_KEY)
+            if (bundle.containsKey(ExchangeRateDiffCallback.PRICE_KEY)) {
+                val price = bundle.getDouble(ExchangeRateDiffCallback.PRICE_KEY)
                 binding.pairPriceTv.text = price.fractionFormat(4)
             }
         }

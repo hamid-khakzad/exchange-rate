@@ -3,19 +3,21 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'org.jetbrains.kotlin.android'
 }
 android {
-    namespace 'com.khakzad.ratelist'
+    namespace 'com.nextop.ratelist'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.khakzad.ratelist"
+        applicationId "com.nextop.ratelist"
         minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.raminabbasiiii.movies.HiltTestRunner"
     }
 
     buildTypes {
@@ -44,7 +46,10 @@ android {
 
 
 dependencies {
+    implementation 'androidx.core:core-ktx:+'
     def nav_version = "2.7.3"
+    def hilt_version = "2.46"
+    def fragment_version = "1.5.0-alpha03"
 
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -60,9 +65,11 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
 
     // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:2.46"
-    kapt "com.google.dagger:hilt-android-compiler:2.46"
-    kapt "com.google.dagger:hilt-compiler:2.46"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:4.14.2"
@@ -76,23 +83,43 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:2.8.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
-
-    // JUnit
-    testImplementation 'junit:junit:4.13.2'
+    //--Fragment
+    implementation "androidx.fragment:fragment-ktx:1.5.0-alpha03"
 
     // MockK
     testImplementation 'io.mockk:mockk:1.12.0'
 
-    // AndroidX Test - Core
-    testImplementation 'androidx.test:core:1.5.0'
-
-    // AndroidX Arch Core - Testing
-    testImplementation 'androidx.arch.core:core-testing:2.2.0'
-
-    // Kotlin Coroutines Test
+    //--Local Unit Tests
+    implementation "androidx.test:core:1.5.0"
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'com.google.truth:truth:1.1.3'
+    testImplementation 'org.mockito:mockito-core:4.3.1'
+    testImplementation 'org.mockito:mockito-inline:4.3.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-
-    //Robolectric
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.1'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.5.31'
     testImplementation "org.robolectric:robolectric:4.7"
+
+    //--Instrumented Unit Tests
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'com.google.truth:truth:1.1.3'
+    androidTestImplementation 'org.mockito:mockito-core:4.3.1'
+    androidTestImplementation 'org.mockito:mockito-android:4.3.1'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.39.1'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.5.31'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.46'
+    debugImplementation "androidx.fragment:fragment-testing:1.6.1"
+
+
 
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonSyntaxException
-import com.khakzad.ratelist.R
+import com.nextop.ratelist.R
 import com.nextop.ratelist.data.remote.ExchangeRateResponse
 import com.nextop.ratelist.data.repository.ExchangeRateRepository
 import com.nextop.ratelist.util.NetworkUtil
