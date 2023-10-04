@@ -38,7 +38,6 @@ class ExchangeRateViewModel @Inject constructor(
         _exchangeRate.postValue(Resource.Loading())
         try {
             if (networkUtil.hasInternetConnection()) {
-                viewModelScope
                 val exchangeRateResponse = exchangeRateRepository.getExchangeRates()
                 _exchangeRate.postValue(handleExchangeRateResponse(exchangeRateResponse))
             } else {
