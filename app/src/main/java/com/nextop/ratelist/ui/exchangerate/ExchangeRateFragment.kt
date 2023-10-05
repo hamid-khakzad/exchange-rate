@@ -31,7 +31,7 @@ class ExchangeRateFragment : Fragment() {
 
 
     companion object {
-        const val API_CALL_DELAY = 2 * 60 * 1000L
+        const val API_CALL_DELAY = 10L
     }
 
     var isLoading = false
